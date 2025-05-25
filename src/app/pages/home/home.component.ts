@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '../../services/loading-service';
+import { UserService } from '../../services/user-service';
 
 @Component({
   selector: 'app-home',
@@ -20,16 +21,11 @@ export class HomeComponent {
   hidePassword: boolean = true;
   loginForm: FormGroup
 
-  constructor(private router: Router, private fb: FormBuilder, private toastr: ToastrService, private loadingService: LoadingService) {
+  constructor(private router: Router, private fb: FormBuilder, private toastr: ToastrService, private loadingService: LoadingService, private userService: UserService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     })
-  }
-
-
-  togglePasswordVisibility(): void {
-    this.hidePassword = !this.hidePassword;
   }
 
   goToSignUp() {
@@ -37,6 +33,24 @@ export class HomeComponent {
   }
 
   onSubmit() {
-    console.log(this.loginForm)
+    this.handleLogin()
+  }
+
+  handleLogin() {
+    this.loadingService.show()
+    const data = {
+      email: this.loginForm.get('email')!.value,
+      password: this.loginForm.get('password')!.value
+    }
+    console.log(data)
+    this.userService.getUserByEmail(data).subscribe((res: any) => {
+      this.toastr.success('Logado com sucesso');
+      const url = res.role === 'client' ? '/clientdashboard' : '/providerdashboard'
+      this.router.navigate([url])
+      this.loadingService.hide()
+    }, (err) => {
+      this.loadingService.hide()
+      this.toastr.error('Confira as credenciais ou entre em contato.', 'Erro ao logar');
+    })
   }
 }

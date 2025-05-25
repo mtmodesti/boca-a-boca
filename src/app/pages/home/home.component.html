@@ -26,7 +26,7 @@
 
             <span>Ainda não possui conta? <em (click)="goToSignUp()">Cadastre aqui</em></span>
 
-            <button type="submit" mat-flat-button>Login</button>
+            <button [disabled]="!loginForm.valid" type="submit" mat-flat-button>Login</button>
 
         </form>
     </section>

@@ -19,4 +19,12 @@ export class UserService {
     createUser(userData: User): Observable<any> {
         return this.http.post<any>(`${this.apiUrl}${ApiEndpoints.users}`, userData);
     }
+
+    getUserByEmail(data: { email: string, password: string }) {
+        const payload = {
+            email: data.email,
+            password: data.password
+        }
+        return this.http.post<any>(`${this.apiUrl}${ApiEndpoints.users}${ApiEndpoints.email}`, { email: payload });
+    }
 }

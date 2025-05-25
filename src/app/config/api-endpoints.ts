@@ -1,4 +1,5 @@
 export const ApiEndpoints = {
-    users: 'users',
-    auth: 'auth',
+    users: '/users',
+    email: '/email',
+    auth: '/auth',
 };
