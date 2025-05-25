@@ -1,0 +1,33 @@
+<div class="wrapper">
+
+    <section>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <span class="symbol">Desenho da marca</span>
+
+            <mat-form-field>
+                <mat-label>E-mail</mat-label>
+                <input matInput type="email" name="email" formControlName="email">
+                <mat-error *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched">
+                    O e-mail é obrigatório.
+                </mat-error>
+                <mat-error *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched">
+                    Insira um e-mail válido.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Senha</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" name="password" formControlName="password">
+                <mat-error
+                    *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+                    A senha é obrigatória.
+                </mat-error>
+            </mat-form-field>
+
+            <span>Ainda não possui conta? <em (click)="goToSignUp()">Cadastre aqui</em></span>
+
+            <button type="submit" mat-flat-button>Login</button>
+
+        </form>
+    </section>
+</div>

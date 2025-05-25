@@ -1,1 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+// Definindo variáveis globais de cores
+$darkGreen: #16302B;
+$darkViolet: #403C4F;
+$violet: #694873;
+$pink: #8B728E;
+$camBlue: #85B79D;
+$teaGreen: #C0E5C8;
+
+
+* {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// Scrollbar estilizado para Webkit (Chrome, Edge, Safari)
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: $teaGreen;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, $darkViolet, $violet);
+    border-radius: 10px;
+    border: 3px solid $teaGreen;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, $pink, $darkViolet);
+}
+
+// Scrollbar para Firefox
+* {
+    scrollbar-width: thin;
+    scrollbar-color: $violet $teaGreen;
+}
+
+form {
+    padding: 12px;
+    gap: 12px;
+    width: 280px;
+    height: 80%;
+    background: $teaGreen;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px $violet;
+    backdrop-filter: blur(6.6px);
+    -webkit-backdrop-filter: blur(6.6px);
+    border: 1px solid $darkGreen;
+}

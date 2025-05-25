@@ -1,0 +1,25 @@
+@use '../../../styles.scss' as *;
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: $camBlue;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.symbol {
+    text-align: center;
+}
+
+em {
+    color: $darkViolet;
+    cursor: pointer;
+}
