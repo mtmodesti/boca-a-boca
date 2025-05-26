@@ -1,0 +1,21 @@
+<button *ngIf="!isOpen" mat-icon-button class="menu-button" (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon>
+</button>
+
+<div class="overlay" *ngIf="isOpen" (click)="closeMenu()"></div>
+
+
+<div class="custom-sidenav" [class.open]="isOpen">
+    <button mat-icon-button class="close-button" (click)="toggleMenu()">
+        <mat-icon>close</mat-icon>
+    </button>
+    <ul class="menu-list">
+        <li *ngFor="let menu of sidenavMenu">
+            <button mat-button>
+                <mat-icon class="iconMenu">{{ menu.icon }}</mat-icon>
+                <span class="spanMenu">{{ menu.title }}</span>
+            </button>
+        </li>
+    </ul>
+
+</div>

@@ -1,0 +1,16 @@
+{
+    "menus": [
+        {
+            "icon": "home",
+            "title": "Início"
+        },
+        {
+            "icon": "info",
+            "title": "Sobre"
+        },
+        {
+            "icon": "contact_mail",
+            "title": "Contato"
+        }
+    ]
+}

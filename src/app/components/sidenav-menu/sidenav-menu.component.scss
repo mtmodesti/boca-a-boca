@@ -1,0 +1,112 @@
+@use '../../../styles.scss' as *;
+
+
+.menu-button {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    padding: 8px;
+
+    mat-icon {
+        font-size: 24px;
+        color: #333;
+    }
+
+    &:hover mat-icon {
+        color: #000;
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* sombra escura */
+    z-index: 1000;
+}
+
+.spanMenu {
+    color: $violet;
+}
+
+.iconMenu {
+    color: $violet;
+}
+
+
+
+.custom-sidenav {
+    position: fixed;
+    top: 15%;
+    left: -100%;
+    height: 70vh;
+    background-color: $teaGreen;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    transition: left 0.3s ease-in-out;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    min-width: 150px;
+
+    &.open {
+        left: 0;
+    }
+
+    .close-button {
+        align-self: flex-end;
+        margin-bottom: 16px;
+        color: $violet;
+    }
+
+    .menu-content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            white-space: nowrap;
+
+            &:hover {
+                color: #000;
+            }
+        }
+    }
+}
+
+.menu-button {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 1002;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* sombra escura */
+    z-index: 1000;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}

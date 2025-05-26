@@ -12,6 +12,7 @@ import { User } from '../../models/users';
 import { UserService } from '../../services/user-service';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingService } from '../../services/loading-service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class SignUpComponent {
   singUpForm: FormGroup
   isSubmitDisabled: boolean = true
 
-  constructor(private router: Router, private fb: FormBuilder, private userService: UserService, private loadingService: LoadingService) {
+  constructor(private toastr: ToastrService, private router: Router, private fb: FormBuilder, private userService: UserService, private loadingService: LoadingService) {
     this.singUpForm = this.fb.group({
       name: ['', Validators.required],
       birth: ['', [Validators.required, this.birthDateValidator]],
@@ -60,8 +61,11 @@ export class SignUpComponent {
     this.loadingService.show()
     this.userService.createUser(userData).subscribe((res) => {
       console.log(res)
+      this.toastr.success('Usuário criado com sucesso');
+      this.router.navigate(['home'])
       this.loadingService.hide()
     }, (err) => {
+      this.toastr.error('Erro ao criar usuário. Tente novamnte.');
       this.loadingService.hide()
     })
   }
@@ -78,7 +82,6 @@ export class SignUpComponent {
       if (value1 !== value2) {
         form.get(field2)?.setErrors({ [errorKey]: true });
       } else {
-        // Remove erro customizado se os valores forem iguais
         if (form.get(field2)?.hasError(errorKey)) {
           const errors = { ...form.get(field2)?.errors };
           delete errors[errorKey];
