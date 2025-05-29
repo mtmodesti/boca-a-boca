@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoadingService } from '../../services/loading-service';
 
@@ -9,12 +9,13 @@ import { LoadingService } from '../../services/loading-service';
   styleUrl: './loading-component.scss'
 })
 export class LoadingComponent {
+  private loadingService = inject(LoadingService);
 
-  isLoading: boolean = false
+  // Use a signal diretamente
+  isLoading = this.loadingService.loading;
 
-  constructor(private loadingService: LoadingService) {
-    this.loadingService.loading$.subscribe(status => {
-      this.isLoading = status;
-    });
+
+  constructor() {
+
   }
 }

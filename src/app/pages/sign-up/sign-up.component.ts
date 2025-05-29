@@ -64,8 +64,10 @@ export class SignUpComponent {
       this.toastr.success('Usuário criado com sucesso');
       this.router.navigate(['home'])
       this.loadingService.hide()
-    }, (err) => {
-      this.toastr.error('Erro ao criar usuário. Tente novamnte.');
+    }, (err: any) => {
+      console.log(err)
+      const emailError = 'E-mail already exists'
+      this.toastr.error(err?.error === emailError || err?.error?.message === emailError ? 'E-mail já registrado' : 'Erro ao criar usuário. Tente novamente');
       this.loadingService.hide()
     })
   }

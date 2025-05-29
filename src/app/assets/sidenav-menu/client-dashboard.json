@@ -5,12 +5,20 @@
             "title": "Início"
         },
         {
-            "icon": "info",
-            "title": "Sobre"
+            "icon": "person",
+            "title": "Meu perfil"
         },
         {
             "icon": "contact_mail",
             "title": "Contato"
+        },
+        {
+            "icon": "info",
+            "title": "Sobre"
+        },
+        {
+            "icon": "logout",
+            "title": "Logout"
         }
     ]
 }
