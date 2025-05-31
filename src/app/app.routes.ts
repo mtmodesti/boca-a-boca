@@ -7,15 +7,19 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { AboutComponent } from './pages/about/about.component';
 import { InfoComponent } from './pages/info/info.component';
+import { authGuard } from './guards/auth-guard';
+
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'signup', component: SignUpComponent },
-    { path: 'clientdashboard', component: DashboardClientComponent },
-    { path: 'providerdashboard', component: DashboardProviderComponent },
-    { path: 'profile', component: ProfileComponent },
-    { path: 'contact', component: ContactComponent },
-    { path: 'about', component: AboutComponent },
-    { path: 'info', component: InfoComponent },
-    { path: '**', component: HomeComponent }
-];
+
+    // Rotas protegidas
+    { path: 'clientdashboard', component: DashboardClientComponent, canActivate: [authGuard] },
+    { path: 'providerdashboard', component: DashboardProviderComponent, canActivate: [authGuard] },
+    { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
+    { path: 'contact', component: ContactComponent, canActivate: [authGuard] },
+    { path: 'about', component: AboutComponent, canActivate: [authGuard] },
+    { path: 'info', component: InfoComponent, canActivate: [authGuard] },
+    { path: '**', component: HomeComponent, canActivate: [authGuard] },
+]

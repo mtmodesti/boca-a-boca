@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '../../services/loading-service';
 import { UserService } from '../../services/user-service';
+import { GlobalDataService } from '../../services/global-data-service';
+import { saveEncryptedLocal } from '../../utils/utils';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +18,10 @@ import { UserService } from '../../services/user-service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
+  private global = inject(GlobalDataService);
+  user = this.global.user;
   hidePassword: boolean = true;
   loginForm: FormGroup
 
@@ -26,6 +30,14 @@ export class HomeComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     })
+  }
+
+  ngOnInit(): void {
+    const user = this.global.user();
+    if (user) {
+      const url = user.role === 'client' ? '/clientdashboard' : '/providerdashboard';
+      this.router.navigate([url]);
+    }
   }
 
   goToSignUp() {
@@ -44,10 +56,12 @@ export class HomeComponent {
     }
     console.log(data)
     this.userService.getUserByEmail(data).subscribe((res: any) => {
-      this.toastr.success('Logado com sucesso');
       const url = res.role === 'client' ? '/clientdashboard' : '/providerdashboard'
-      this.router.navigate([url])
+      this.global.setUser(res)
+      saveEncryptedLocal('app_user', res);
       this.loadingService.hide()
+      this.router.navigate([url])
+      this.toastr.success('Logado com sucesso');
     }, (err) => {
       this.loadingService.hide()
       this.toastr.error('Confira as credenciais ou entre em contato.', 'Erro ao logar');

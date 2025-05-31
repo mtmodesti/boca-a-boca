@@ -3,7 +3,7 @@
         {
             "icon": "home",
             "title": "Início",
-            "url": "/clientdashboard"
+            "url": "/dashboard"
         },
         {
             "icon": "person",
