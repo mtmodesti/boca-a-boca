@@ -2,23 +2,28 @@
     "menus": [
         {
             "icon": "home",
-            "title": "Início"
+            "title": "Início",
+            "url": "/clientdashboard"
         },
         {
             "icon": "person",
-            "title": "Meu perfil"
+            "title": "Meu perfil",
+            "url": "/profile"
         },
         {
             "icon": "contact_mail",
-            "title": "Contato"
+            "title": "Contato",
+            "url": "/contact"
         },
         {
             "icon": "info",
-            "title": "Sobre"
+            "title": "Sobre",
+            "url": "/about"
         },
         {
             "icon": "logout",
-            "title": "Logout"
+            "title": "Logout",
+            "url": "/"
         }
     ]
 }

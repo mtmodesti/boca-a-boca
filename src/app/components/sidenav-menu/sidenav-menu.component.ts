@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
 import menuDashboard from '../../assets/sidenav-menu/client-dashboard.json'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidenav-menu',
@@ -19,6 +20,9 @@ import menuDashboard from '../../assets/sidenav-menu/client-dashboard.json'
   styleUrl: './sidenav-menu.component.scss'
 })
 export class SidenavMenuComponent {
+
+  constructor(private router: Router) { }
+
   @Input() sidenavMenu: any[] = menuDashboard.menus
   isOpen = false;
 
@@ -28,6 +32,10 @@ export class SidenavMenuComponent {
 
   closeMenu() {
     this.isOpen = false
+  }
+
+  clickMenu(route: string): void {
+    this.router.navigate([route])
   }
 
 }

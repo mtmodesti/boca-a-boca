@@ -1,13 +1,10 @@
 <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
-
     <mat-form-field style="width: 80%;">
-        <mat-label>Categorias:</mat-label>
-        <mat-select formControlName="category" multiple>
-            <mat-option value="Limpeza residencial">Cliente</mat-option>
+        <mat-label>Categoria:</mat-label>
+        <mat-select formControlName="category">
+            <mat-option value="Limpeza">Limpeza</mat-option>
             <mat-option value="Jardinagem">Jardinagem</mat-option>
             <mat-option value="Cuidador(a) de crianças/idosos">Cuidador(a) de crianças/idosos</mat-option>
         </mat-select>
-
     </mat-form-field>
-
 </form>

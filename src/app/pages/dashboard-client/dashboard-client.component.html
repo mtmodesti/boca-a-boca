@@ -1,7 +1,6 @@
 <main class="wrapper">
-    <app-client-header></app-client-header>
-    <section>dashboard com os profissionais exibidos no filtros</section>
+    <app-client-header (categoryValue)="categoryValue($event)"></app-client-header>
+    <app-professionals-list [selectedValue]="selectValue"></app-professionals-list>
     <div>paginação</div>
     <footer>footer</footer>
 </main>
-<app-sidenav-menu [sidenavMenu]="sidenaveMenuJson"></app-sidenav-menu>

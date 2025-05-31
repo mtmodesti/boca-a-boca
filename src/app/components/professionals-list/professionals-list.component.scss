@@ -1,0 +1,29 @@
+@use '../../../styles.scss' as *;
+
+:host {
+    width: 90%;
+    max-width: 75vw;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    background-color: $teaGreen;
+    min-height: 200px;
+    @include styledBorder
+}
+
+main {
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+
+    header {
+        display: flex;
+        flex-direction: column;
+
+        span {
+            text-align: center;
+        }
+
+    }
+}

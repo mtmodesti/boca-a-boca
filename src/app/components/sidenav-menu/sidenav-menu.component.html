@@ -11,7 +11,7 @@
     </button>
     <ul class="menu-list">
         <li *ngFor="let menu of sidenavMenu">
-            <button mat-button>
+            <button (click)="clickMenu(menu.url)" mat-button>
                 <mat-icon class="iconMenu">{{ menu.icon }}</mat-icon>
                 <span class="spanMenu">{{ menu.title }}</span>
             </button>
