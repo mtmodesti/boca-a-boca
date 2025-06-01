@@ -1,1 +1,7 @@
-<p>profile works!</p>
+<main *ngIf="user() as currentUser">
+    <ng-container [ngSwitch]="currentUser.role">
+        <app-client-profile *ngSwitchCase="'client'"></app-client-profile>
+        <app-provider-profile *ngSwitchCase="'provider'"></app-provider-profile>
+        <p *ngSwitchDefault>Perfil não reconhecido.</p>
+    </ng-container>
+</main>

@@ -40,9 +40,6 @@ export class SidenavMenuComponent {
 
   clickMenu(route: string): void {
     const user = this.global.user();
-    console.log('user')
-    console.log(user)
-
     if (route === '/dashboard') {
       if (!user) {
         // Se não tiver usuário logado, redireciona para login (opcional)

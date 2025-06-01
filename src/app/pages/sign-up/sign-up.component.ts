@@ -60,12 +60,10 @@ export class SignUpComponent {
   createUser(userData: User) {
     this.loadingService.show()
     this.userService.createUser(userData).subscribe((res) => {
-      console.log(res)
       this.toastr.success('Usuário criado com sucesso');
       this.router.navigate(['home'])
       this.loadingService.hide()
     }, (err: any) => {
-      console.log(err)
       const emailError = 'E-mail already exists'
       this.toastr.error(err?.error === emailError || err?.error?.message === emailError ? 'E-mail já registrado' : 'Erro ao criar usuário. Tente novamente');
       this.loadingService.hide()

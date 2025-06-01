@@ -54,7 +54,6 @@ export class HomeComponent implements OnInit {
       email: this.loginForm.get('email')!.value,
       password: this.loginForm.get('password')!.value
     }
-    console.log(data)
     this.userService.getUserByEmail(data).subscribe((res: any) => {
       const url = res.role === 'client' ? '/clientdashboard' : '/providerdashboard'
       this.global.setUser(res)

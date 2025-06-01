@@ -1,0 +1,30 @@
+@use '../../../styles.scss' as *;
+
+main {
+    background-color: $camBlue;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: scroll;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+
+    section {
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+
+}
+
+@media (max-width: 460px) {
+    main {
+        padding-top: 50px;
+    }
+}

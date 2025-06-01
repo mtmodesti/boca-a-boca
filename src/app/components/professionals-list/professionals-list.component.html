@@ -1,6 +1,18 @@
 <main>
-    <header *ngIf="selectedValue">
-        <span class="title">Categorias selecionada de profissional: </span>
-        <span>{{selectedValue}}</span>
-    </header>
+  <header *ngIf="selectedValue">
+    <span class="title">Categorias selecionada de profissional: </span>
+    <span>{{selectedValue}}</span>
+  </header>
+  <section>
+    <ng-container *ngIf="providers.length > 0; else emptyState">
+      <app-provider-card *ngFor="let item of providers"></app-provider-card>
+    </ng-container>
+
+    <ng-template #emptyState>
+      <p>Nenhum serviço cadastrado atualmente</p>
+    </ng-template>
+  </section>
+
+
+
 </main>

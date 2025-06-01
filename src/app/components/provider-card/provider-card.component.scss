@@ -1,0 +1,8 @@
+@use '../../../styles.scss' as *;
+
+main {
+    width: 200px;
+    height: 100px;
+    padding: 8px;
+    @include styledBorder;
+}
