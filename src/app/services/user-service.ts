@@ -28,8 +28,14 @@ export class UserService {
         return this.http.post<any>(`${this.apiUrl}${ApiEndpoints.users}${ApiEndpoints.email}`, { email: payload });
     }
 
-    getAllProviders(page=1, limit = 20){
+    getAllProviders(page = 1, limit = 20) {
         const queryParams = `?page=${page}&limit=${limit}`
         return this.http.get<any>(`${this.apiUrl}${ApiEndpoints.users}${ApiEndpoints.providers}${queryParams}`)
     }
+
+    updateUser(user: any, id: string): any {
+        return this.http.put<any>(`${this.apiUrl}${ApiEndpoints.users}/${id}`, user)
+    }
+
+
 }

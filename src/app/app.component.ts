@@ -16,9 +16,6 @@ export class AppComponent {
   title = 'boca-a-boca';
 
   constructor(private router: Router) {
-    setInterval(() => {
-      this.showSidenavMenu()
-    }, 2000)
   }
 
   showSidenavMenu() {

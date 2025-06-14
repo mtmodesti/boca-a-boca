@@ -1,1 +1,57 @@
-<p>client-profile works!</p>
+<main>
+    <h1>Dados cadastrados:</h1>
+    <span>Altere caso sinta necessidade.</span>
+
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="name" />
+            <mat-error *ngIf="userForm.get('name')?.hasError('required')">
+                Campo obrigatório.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" />
+            <mat-error *ngIf="userForm.get('email')?.hasError('required')">
+                Campo obrigatório.
+            </mat-error>
+            <mat-error *ngIf="userForm.get('email')?.hasError('email') && !userForm.get('email')?.hasError('required')">
+                Insira um e-mail válido.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Data de nascimento</mat-label>
+            <input matInput formControlName="birth" placeholder="dd/mm/aaaa" />
+            <mat-error *ngIf="userForm.get('birth')?.hasError('required')">
+                Campo obrigatório.
+            </mat-error>
+            <mat-error
+                *ngIf="userForm.get('birth')?.hasError('invalidDateFormat') && !userForm.get('birth')?.hasError('required')">
+                Use o formato dd/mm/aaaa.
+            </mat-error>
+            <mat-error
+                *ngIf="userForm.get('birth')?.hasError('invalidDateReal') && !userForm.get('birth')?.hasError('required')">
+                Data inválida.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>O que você é:</mat-label>
+            <mat-select formControlName="role">
+                <mat-option value="client">Cliente</mat-option>
+                <mat-option value="provider">Prestador de serviço</mat-option>
+            </mat-select>
+            <mat-error *ngIf="userForm.get('role')?.hasError('required')">
+                Campo obrigatório.
+            </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">
+            Salvar
+        </button>
+    </form>
+</main>
