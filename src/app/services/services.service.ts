@@ -1,0 +1,23 @@
+import { Injectable } from "@angular/core";
+import { environment } from "../../environments/environments";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { ApiEndpoints } from '../config/api-endpoints';
+
+
+
+
+
+@Injectable({
+    providedIn: 'root'
+})
+export class ServicesService {
+    private apiUrl = `${environment.apiUrl}`
+    constructor(private http: HttpClient) { }
+
+    getCategories(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}${ApiEndpoints.services}`);
+    }
+
+
+}

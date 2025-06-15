@@ -3,26 +3,33 @@ import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user-service';
 import { ToastrService } from 'ngx-toastr';
 import { ProviderCardComponent } from '../provider-card/provider-card.component';
+import { ServicesService } from '../../services/services.service';
 
 @Component({
   selector: 'app-professionals-list',
-  imports: [CommonModule,ProviderCardComponent],
+  imports: [CommonModule, ProviderCardComponent],
   templateUrl: './professionals-list.component.html',
   styleUrl: './professionals-list.component.scss'
 })
-export class ProfessionalsListComponent implements OnInit{
+export class ProfessionalsListComponent implements OnInit {
 
-  @Input() selectedValue: string = ''
+  @Input() selectedValue: any = {}
   providers = []
 
-  constructor(private userService:UserService, private toastr: ToastrService){}
+  constructor(private userService: UserService, private toastr: ToastrService,
+    private servicesService: ServicesService
+
+  ) { }
 
 
   ngOnInit(): void {
-    this.getProviders()
+
+
   }
 
-  getProviders(){
+
+
+  getProviders() {
     this.userService.getAllProviders().subscribe((res) => {
       this.providers = res
     }, (err) => {

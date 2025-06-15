@@ -1,7 +1,7 @@
 <main>
   <header *ngIf="selectedValue">
-    <span class="title">Categorias selecionada de profissional: </span>
-    <span>{{selectedValue}}</span>
+    <span class="title">Categorias selecionada: </span>
+    <span>{{selectedValue.category}}</span>
   </header>
   <section>
     <ng-container *ngIf="providers.length > 0; else emptyState">
