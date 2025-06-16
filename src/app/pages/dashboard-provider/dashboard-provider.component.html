@@ -1,1 +1,28 @@
-<main class="wrapper">teste</main>
+<main class="wrapper">
+    <h1>Cadastre aqui seus serviços</h1>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Categoria:</mat-label>
+            <mat-select formControlName="category">
+                <mat-option *ngFor="let category of categories" [value]="category">{{category.category}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('category')?.hasError('required')">
+                Campo obrigatório.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Descrição do serviço</mat-label>
+            <textarea matInput formControlName="description" rows="2"></textarea>
+            <mat-error *ngIf="form.get('description')?.hasError('required')">
+                Campo obrigatório.
+            </mat-error>
+        </mat-form-field>
+
+        <button [disabled]="!form.valid" mat-raised-button type="submit">Salvar</button>
+
+
+    </form>
+</main>

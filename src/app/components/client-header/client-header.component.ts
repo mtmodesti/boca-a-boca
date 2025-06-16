@@ -5,6 +5,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ServicesService } from '../../services/services.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-client-header',
@@ -19,7 +20,9 @@ export class ClientHeaderComponent implements OnInit {
   @Output() categoryValue = new EventEmitter()
 
 
-  constructor(private fb: FormBuilder, private servicesServices: ServicesService) {
+  constructor(
+    private toastr: ToastrService,
+    private fb: FormBuilder, private servicesServices: ServicesService) {
     this.filterForm = this.fb.group({
       category: [[]]
     })
@@ -46,12 +49,17 @@ export class ClientHeaderComponent implements OnInit {
 
 
   getCategories() {
-    this.servicesServices.getCategories().subscribe((res) => {
-      this.categories = res
-    }, (err) => {
-      throw new Error('Erro ao capturar categorias')
-    })
+    this.servicesServices.getCategories().subscribe({
+      next: (res) => {
+        this.categories = res;
+      },
+      error: (err) => {
+        console.error('Erro ao capturar categorias', err);
+        this.toastr.error('Erro ao capturar categorias');
+      }
+    });
   }
+
 
 
 

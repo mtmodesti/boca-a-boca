@@ -58,17 +58,23 @@ export class SignUpComponent {
   }
 
   createUser(userData: User) {
-    this.loadingService.show()
-    this.userService.createUser(userData).subscribe((res) => {
-      this.toastr.success('Usuário criado com sucesso');
-      this.router.navigate(['home'])
-      this.loadingService.hide()
-    }, (err: any) => {
-      const emailError = 'E-mail already exists'
-      this.toastr.error(err?.error === emailError || err?.error?.message === emailError ? 'E-mail já registrado' : 'Erro ao criar usuário. Tente novamente');
-      this.loadingService.hide()
-    })
+    this.loadingService.show();
+
+    this.userService.createUser(userData).subscribe({
+      next: (res) => {
+        this.toastr.success('Usuário criado com sucesso');
+        this.router.navigate(['home']);
+        this.loadingService.hide();
+      },
+      error: (err: any) => {
+        const emailError = 'E-mail already exists';
+        const isEmailError = err?.error === emailError || err?.error?.message === emailError;
+        this.toastr.error(isEmailError ? 'E-mail já registrado' : 'Erro ao criar usuário. Tente novamente');
+        this.loadingService.hide();
+      }
+    });
   }
+
 
   goToHome() {
     this.router.navigate(['/'])

@@ -30,11 +30,15 @@ export class ProfessionalsListComponent implements OnInit {
 
 
   getProviders() {
-    this.userService.getAllProviders().subscribe((res) => {
-      this.providers = res
-    }, (err) => {
-      this.toastr.error('Erro ao capturar dados para exibir. Tente novamente');
-    })
+    this.userService.getAllProviders().subscribe({
+      next: (res) => {
+        this.providers = res;
+      },
+      error: (err) => {
+        this.toastr.error('Erro ao capturar dados para exibir. Tente novamente');
+      }
+    });
   }
+
 
 }

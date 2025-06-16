@@ -49,21 +49,27 @@ export class HomeComponent implements OnInit {
   }
 
   handleLogin() {
-    this.loadingService.show()
+    this.loadingService.show();
+
     const data = {
       email: this.loginForm.get('email')!.value,
       password: this.loginForm.get('password')!.value
-    }
-    this.userService.getUserByEmail(data).subscribe((res: any) => {
-      const url = res.role === 'client' ? '/clientdashboard' : '/providerdashboard'
-      this.global.setUser(res)
-      saveEncryptedLocal('app_user', res);
-      this.loadingService.hide()
-      this.router.navigate([url])
-      this.toastr.success('Logado com sucesso');
-    }, (err) => {
-      this.loadingService.hide()
-      this.toastr.error('Confira as credenciais ou entre em contato.', 'Erro ao logar');
-    })
+    };
+
+    this.userService.getUserByEmail(data).subscribe({
+      next: (res: any) => {
+        const url = res.role === 'client' ? '/clientdashboard' : '/providerdashboard';
+        this.global.setUser(res);
+        saveEncryptedLocal('app_user', res);
+        this.loadingService.hide();
+        this.router.navigate([url]);
+        this.toastr.success('Logado com sucesso');
+      },
+      error: (err) => {
+        this.loadingService.hide();
+        this.toastr.error('Confira as credenciais ou entre em contato.', 'Erro ao logar');
+      }
+    });
   }
+
 }
