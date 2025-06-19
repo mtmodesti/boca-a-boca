@@ -10,10 +10,14 @@ import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user-service';
 import { LoadingService } from '../../services/loading-service';
 import { ToastrService } from 'ngx-toastr';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+
 
 @Component({
   selector: 'app-client-profile',
-  imports: [ReactiveFormsModule, CommonModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, MatFormFieldModule],
+  providers: [provideNgxMask()],
+
+  imports: [ReactiveFormsModule, NgxMaskDirective, CommonModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, MatFormFieldModule],
   templateUrl: './client-profile.component.html',
   styleUrl: './client-profile.component.scss'
 })
@@ -22,6 +26,9 @@ export class ClientProfileComponent {
   userForm: FormGroup
   private global = inject(GlobalDataService);
   private user: any
+  imageBase64: string | null = this.global.user()?.profilePic || null;
+
+
 
   constructor(
     private toastr: ToastrService,
@@ -32,12 +39,23 @@ export class ClientProfileComponent {
       email: [this.user.email || '', [Validators.required, Validators.email]],
       birth: [this.user.birth || '', [Validators.required, this.validateDateFormat(), this.validateDateReal()]],
       role: [this.user.role || '', Validators.required],
+      phone: [this.user.phone || '', Validators.required],
+
     });
+    setTimeout(() => {
+
+      console.log(this.global.user())
+    }, 2000)
   }
 
   onSubmit() {
     this.loadingService.show()
-    const updatedUser = this.userForm.value
+    const updatedUser = this.imageBase64 ? {
+      ...this.userForm.value,
+      profilePic: this.imageBase64
+    } :
+      { ...this.userForm.value, }
+      ;
     this.userService.updateUser(updatedUser, this.user.id).subscribe((res: any) => {
       this.loadingService.hide()
       this.toastr.success('Dados atualizados com sucesso');
@@ -74,6 +92,29 @@ export class ClientProfileComponent {
 
       return isValid ? null : { invalidDateReal: true };
     };
+  }
+
+  triggerFileInput(): void {
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+    fileInput.click();
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) return;
+
+    const file = input.files[0];
+
+    if (!file.type.startsWith('image/')) {
+      this.toastr.error('Apenas arquivos de imagem são permitidos.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageBase64 = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
 

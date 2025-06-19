@@ -15,7 +15,7 @@ export const routes: Routes = [
     { path: 'signup', component: SignUpComponent },
 
     // Rotas protegidas
-    { path: 'clientdashboard', component: DashboardClientComponent, canActivate: [authGuard] },
+    { path: 'registeredJobs', component: DashboardClientComponent, canActivate: [authGuard] },
     { path: 'providerdashboard', component: DashboardProviderComponent, canActivate: [authGuard] },
     { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
     { path: 'contact', component: ContactComponent, canActivate: [authGuard] },

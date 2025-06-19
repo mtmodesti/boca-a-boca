@@ -1,33 +1,28 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { loadEncryptedLocal } from '../utils/utils';
-
-
 
 @Injectable({
     providedIn: 'root',
 })
 export class GlobalDataService {
 
+    // Signal público e reativo diretamente
+    user = signal<any | null>(null);
+
     constructor() {
         const stored = loadEncryptedLocal<any>('app_user');
         if (stored) {
-            this._user.set(stored);
+            this.user.set(stored);
         }
     }
 
-    // Signal privado para controle interno
-    private _user = signal<any | null>(null);
-
-    // Signal público somente leitura
-    readonly user = computed(() => this._user());
-
-    // Método para atualizar o usuário
+    // Método para atualizar o usuário (login)
     setUser(userInfo: any): void {
-        this._user.set(userInfo);
+        this.user.set(userInfo);
     }
 
     // Método para limpar o usuário (logout)
     clearUser(): void {
-        this._user.set(null);
+        this.user.set(null);
     }
 }

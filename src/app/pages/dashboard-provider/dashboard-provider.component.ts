@@ -33,7 +33,6 @@ export class DashboardProviderComponent implements OnInit {
     private userService: UserService,
     private servicesService: ServicesService) {
     this.user = this.global.user();
-    console.log(this.user)
     this.form = this.fb.group({
       category: [null, Validators.required],
       description: ['', Validators.required]
@@ -63,12 +62,9 @@ export class DashboardProviderComponent implements OnInit {
       category: this.form.get('category')!.value.category,
       description: this.form.get('description')!.value
     }
-    console.log('data')
-    console.log(data)
 
     this.servicesService.addService(this.user.id, data).subscribe({
       next: (res) => {
-        console.log(res);
         this.toastr.success('Serviço adicionado com sucesso');
         this.updateUser()
       },

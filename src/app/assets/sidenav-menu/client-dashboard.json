@@ -1,9 +1,41 @@
 {
-    "menus": [
+    "menusClient": [
         {
             "icon": "home",
             "title": "Início",
             "url": "/dashboard"
+        },
+        {
+            "icon": "person",
+            "title": "Meu perfil",
+            "url": "/profile"
+        },
+        {
+            "icon": "contact_mail",
+            "title": "Contato",
+            "url": "/contact"
+        },
+        {
+            "icon": "info",
+            "title": "Sobre",
+            "url": "/about"
+        },
+        {
+            "icon": "logout",
+            "title": "Logout",
+            "url": "/"
+        }
+    ],
+    "menusProvider": [
+        {
+            "icon": "home",
+            "title": "Início",
+            "url": "/dashboard"
+        },
+        {
+            "icon": "person",
+            "title": "Serviços cadastrados",
+            "url": "/registeredJobs"
         },
         {
             "icon": "person",

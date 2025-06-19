@@ -11,10 +11,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingService } from '../../services/loading-service';
 import { UserService } from '../../services/user-service';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+
 
 @Component({
   selector: 'app-provider-profile',
-  imports: [ReactiveFormsModule, CommonModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, MatFormFieldModule],
+  imports: [ReactiveFormsModule, CommonModule, NgxMaskDirective, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, MatFormFieldModule],
+  providers: [provideNgxMask()],
 
   templateUrl: './provider-profile.component.html',
   styleUrl: './provider-profile.component.scss'
@@ -23,6 +26,8 @@ export class ProviderProfileComponent implements OnInit {
   form: FormGroup
   private global = inject(GlobalDataService);
   private user: any
+  imageBase64: string | null = this.global.user()?.profilePic || null;
+
 
 
   constructor(private fb: FormBuilder,
@@ -38,17 +43,23 @@ export class ProviderProfileComponent implements OnInit {
       email: [this.user.email || '', [Validators.required, Validators.email]],
       birth: [this.user.birth || '', [Validators.required, this.validateDateFormat(), this.validateDateReal()]],
       role: [this.user.role || '', Validators.required],
+      phone: [this.user.phone || '', Validators.required],
+
     })
   }
 
   ngOnInit() {
-    console.log(this.global.user())
   }
 
 
   onSubmit() {
     this.loadingService.show()
-    const updatedUser = this.form.value
+    const updatedUser = this.imageBase64 ? {
+      ...this.form.value,
+      profilePic: this.imageBase64
+    } :
+      { ...this.form.value, }
+      ;
     this.userService.updateUser(updatedUser, this.user.id).subscribe((res: any) => {
       this.loadingService.hide()
       this.toastr.success('Dados atualizados com sucesso');
@@ -87,4 +98,27 @@ export class ProviderProfileComponent implements OnInit {
     };
   }
 
+
+  triggerFileInput(): void {
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+    fileInput.click();
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files || input.files.length === 0) return;
+
+    const file = input.files[0];
+
+    if (!file.type.startsWith('image/')) {
+      this.toastr.error('Apenas arquivos de imagem são permitidos.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageBase64 = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
 }

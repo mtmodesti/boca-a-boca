@@ -24,6 +24,16 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill">
+            <mat-label>Telefone de contato</mat-label>
+            <input matInput formControlName="phone" mask="(00) 00000-0000" placeholder="(11) 91234-5678" />
+            <mat-error *ngIf="form.get('phone')?.hasError('required')">
+                Campo obrigatório.
+            </mat-error>
+        </mat-form-field>
+
+
+
+        <mat-form-field appearance="fill">
             <mat-label>Data de nascimento</mat-label>
             <input matInput formControlName="birth" placeholder="dd/mm/aaaa" />
             <mat-error *ngIf="form.get('birth')?.hasError('required')">
@@ -49,6 +59,24 @@
                 Campo obrigatório.
             </mat-error>
         </mat-form-field>
+
+        <mat-label>Foto de perfil</mat-label>
+
+        <div class="conteudo-imagem">
+            <!-- Input oculto -->
+            <input type="file" accept="image/*" id="fileInput" (change)="onFileSelected($event)" hidden />
+
+            <!-- Botão estilizado que dispara o input -->
+            <button mat-raised-button color="primary" type="button" (click)="triggerFileInput()">
+                Upload de imagem
+            </button>
+
+            <!-- Pré-visualização da imagem -->
+            <img *ngIf="imageBase64" [src]="imageBase64" alt="Pré-visualização" class="profile-image" />
+
+        </div>
+
+
 
         <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">
             Salvar

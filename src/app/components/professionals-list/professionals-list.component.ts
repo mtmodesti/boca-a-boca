@@ -36,7 +36,6 @@ export class ProfessionalsListComponent implements OnInit, OnChanges {
     this.userService.getAllProviders(this.selectedValue?.id, true, 1, 20).subscribe({
       next: (res: any[]) => {
         this.providers = [];
-        console.log(res)
         res.forEach(user => {
           if (Array.isArray(user.jobsOffered)) {
             user.jobsOffered.forEach((job: any) => {

@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     const user = this.global.user();
     if (user) {
-      const url = user.role === 'client' ? '/clientdashboard' : '/providerdashboard';
+      const url = user.role === 'client' ? '/registeredJobs' : '/providerdashboard';
       this.router.navigate([url]);
     }
   }
@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
 
     this.userService.getUserByEmail(data).subscribe({
       next: (res: any) => {
-        const url = res.role === 'client' ? '/clientdashboard' : '/providerdashboard';
+        const url = res.role === 'client' ? '/registeredJobs' : '/providerdashboard';
         this.global.setUser(res);
         saveEncryptedLocal('app_user', res);
         this.loadingService.hide();

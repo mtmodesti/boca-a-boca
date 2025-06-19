@@ -23,12 +23,21 @@ import { clearEncryptedLocal } from '../../utils/utils';
 })
 export class SidenavMenuComponent {
 
-  @Input() sidenavMenu: any[] = menuDashboard.menus
-  isOpen = false;
   private global = inject(GlobalDataService);
   user = this.global.user;
+  @Input() sidenavMenu: any[] = []
+  isOpen = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    console.log(this.global.user())
+    if (this.global.user().role === 'provider') {
+      this.sidenavMenu.splice(1, 0, {
+        icon: "assignment",
+        title: "Seriços cadastrados",
+        url: '/registeredJobs'
+      })
+    }
+  }
 
   toggleMenu() {
     this.isOpen = !this.isOpen;
@@ -45,7 +54,7 @@ export class SidenavMenuComponent {
         // Se não tiver usuário logado, redireciona para login (opcional)
         this.router.navigate(['/']);
       } else {
-        const url = user.role === 'client' ? '/clientdashboard' : '/providerdashboard';
+        const url = user.role === 'client' ? '/registeredJobs ' : '/providerdashboard';
         this.router.navigate([url]);
       }
       this.closeMenu();

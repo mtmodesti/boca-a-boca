@@ -1,22 +1,41 @@
 <main>
-    <div>
-        <span>Nome: </span>
-        <span>
-            {{user.name}}
-        </span>
-    </div>
+
+    <header>
+        <img [src]="user.profilePic" alt="Foto de perfil">
+
+        <span>{{ user.name }}</span>
+    </header>
+
+
     <hr>
-    <div>
+
+    <div class="conteudo-colunas">
         <span>Categoria: </span>
-        <span>
-            {{job.category}}
-        </span>
+        <span>{{ job.category }}</span>
     </div>
+
     <hr>
-    <div>
+
+    <div class="conteudo-colunas">
         <span>Descrição: </span>
-        <span>
-            {{job.description}}
-        </span>
+        <span>{{ job.description | truncate:100 }}</span>
     </div>
+
+    <hr>
+
+    <div class="conteudo-colunas" *ngIf="user.email">
+        <span>E-mail de contato: </span>
+        <span>{{user.email}}</span>
+    </div>
+
+    <hr>
+
+    <div class="conteudo-colunas" *ngIf="user.phone">
+        <span>Telefone de contato: </span>
+        <span>{{user.phone}}</span>
+    </div>
+
+
+
+
 </main>

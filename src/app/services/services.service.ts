@@ -20,7 +20,6 @@ export class ServicesService {
     }
 
     addService(userId: string, data: any) {
-        console.log(`${this.apiUrl}${ApiEndpoints.services}/${userId}`)
         return this.http.post<any>(`${this.apiUrl}${ApiEndpoints.services}/${userId}`, data)
     }
 
