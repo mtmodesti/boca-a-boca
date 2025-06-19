@@ -25,4 +25,10 @@
 
 
     </form>
+
+    <p>Atualmente você possui {{user?.jobsOffered?.length || 0}} serviço(s) cadastrados</p>
+
+    <section *ngIf="user?.jobsOffered?.length">
+        <app-registered-jobs-card [job]="job" *ngFor="let job of user.jobsOffered"></app-registered-jobs-card>
+    </section>
 </main>

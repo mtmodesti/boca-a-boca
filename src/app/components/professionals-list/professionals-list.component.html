@@ -1,11 +1,12 @@
 <main>
   <header *ngIf="selectedValue">
     <span class="title">Categorias selecionada: </span>
-    <span>{{selectedValue.category}}</span>
+    <span>{{selectedValue.category || 'Todas'}}</span>
   </header>
   <section>
     <ng-container *ngIf="providers.length > 0; else emptyState">
-      <app-provider-card *ngFor="let item of providers"></app-provider-card>
+      <app-provider-card *ngFor="let item of providers" [user]="item.user" [job]="item.job">
+      </app-provider-card>
     </ng-container>
 
     <ng-template #emptyState>

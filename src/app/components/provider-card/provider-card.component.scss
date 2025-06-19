@@ -4,5 +4,11 @@ main {
     width: 200px;
     height: 100px;
     padding: 8px;
+    display: flex;
+    flex-direction: column;
     @include styledBorder;
+}
+
+hr {
+    border-bottom: 1px solid $darkViolet;
 }

@@ -2,6 +2,7 @@
     <mat-form-field style="width: 80%;">
         <mat-label>Categoria:</mat-label>
         <mat-select formControlName="category">
+            <mat-option [value]="{id: 'null', value: ''}">Exibir todos</mat-option>
             <mat-option *ngFor="let category of categories" [value]="category">{{category.category}}</mat-option>
         </mat-select>
     </mat-form-field>

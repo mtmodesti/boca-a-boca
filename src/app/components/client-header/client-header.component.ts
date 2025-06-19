@@ -37,9 +37,6 @@ export class ClientHeaderComponent implements OnInit {
         control?.setValue(value);
       }
       this.categoryValue.emit(value)
-
-      // this.filterForm.get('category')?.setValue(value)
-      console.log(value)
     });
 
   }
