@@ -6,7 +6,7 @@
         <mat-form-field appearance="fill">
             <mat-label>Categoria:</mat-label>
             <mat-select formControlName="category">
-                <mat-option *ngFor="let category of categories" [value]="category">{{category.category}}</mat-option>
+                <mat-option *ngFor="let category of categories" [value]="category">{{ category.category }}</mat-option>
             </mat-select>
             <mat-error *ngIf="form.get('category')?.hasError('required')">
                 Campo obrigatório.
@@ -23,12 +23,12 @@
 
         <button [disabled]="!form.valid" mat-raised-button type="submit">Salvar</button>
 
-
     </form>
 
-    <p>Atualmente você possui {{user?.jobsOffered?.length || 0}} serviço(s) cadastrados</p>
+    <p>Atualmente você possui {{ user?.jobsOffered?.length || 0 }} serviço(s) cadastrados</p>
 
     <section *ngIf="user?.jobsOffered?.length">
-        <app-registered-jobs-card [job]="job" *ngFor="let job of user.jobsOffered"></app-registered-jobs-card>
+        <app-provider-card *ngFor="let job of user.jobsOffered" [user]="user" [job]="job">
+        </app-provider-card>
     </section>
 </main>

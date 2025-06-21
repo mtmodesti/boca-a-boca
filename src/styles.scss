@@ -7,7 +7,7 @@ $camBlue: #85B79D;
 $teaGreen: #C0E5C8;
 
 @mixin styledBorder {
-    border-radius: 16px;
+    border-radius: 4px;
     box-shadow: 0 4px 15px $violet;
     backdrop-filter: blur(6.6px);
     -webkit-backdrop-filter: blur(6.6px);

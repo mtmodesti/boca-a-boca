@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Confirmar Exclusão</h2>
+
+<mat-dialog-content>
+    <p>Tem certeza que deseja excluir este item?</p>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="warn" (click)="onConfirm()">Excluir</button>
+</mat-dialog-actions>

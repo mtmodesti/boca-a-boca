@@ -23,5 +23,14 @@ export class ServicesService {
         return this.http.post<any>(`${this.apiUrl}${ApiEndpoints.services}/${userId}`, data)
     }
 
+    editDescription(description: string, jobId: string) {
+        const data = { newDescription: description }
+        return this.http.post<any>(`${this.apiUrl}${ApiEndpoints.services}/${jobId}`, data)
+    }
+
+    removeService(id: string) {
+        return this.http.delete<any>(`${this.apiUrl}${ApiEndpoints.services}/${id}`)
+    }
+
 
 }

@@ -2,10 +2,8 @@
 
     <header>
         <img [src]="user.profilePic" alt="Foto de perfil">
-
         <span>{{ user.name }}</span>
     </header>
-
 
     <hr>
 
@@ -17,25 +15,54 @@
     <hr>
 
     <div class="conteudo-colunas">
-        <span>Descrição: </span>
-        <span>{{ job.description | truncate:100 }}</span>
+        <div class="conteudo-linha">
+            <span>Descrição: </span>
+            <button class="botao-edit" (click)="isEditing ? onSave(job) : onEdit(job)"
+                [disabled]="isEditing && !editedDescription.trim()">
+                <ng-container *ngIf="isEditing">
+                    {{ editedDescription.trim() ? 'Salvar' : '❌' }}
+                </ng-container>
+                <ng-container *ngIf="!isEditing">
+                    Editar
+                </ng-container>
+            </button>
+
+        </div>
+
+        <ng-container *ngIf="!isEditing; else editMode">
+            <span>{{ job.description | truncate:100 }}</span>
+        </ng-container>
+
+        <ng-template #editMode>
+            <mat-form-field appearance="outline" class="edit-input">
+                <input matInput [(ngModel)]="editedDescription" placeholder="Editar descrição">
+            </mat-form-field>
+        </ng-template>
+
+
+
+
     </div>
+
 
     <hr>
 
     <div class="conteudo-colunas" *ngIf="user.email">
         <span>E-mail de contato: </span>
-        <span>{{user.email}}</span>
+        <span>{{ user.email }}</span>
     </div>
 
     <hr>
 
     <div class="conteudo-colunas" *ngIf="user.phone">
         <span>Telefone de contato: </span>
-        <span>{{user.phone}}</span>
+        <span>{{ user.phone }}</span>
     </div>
 
+    <hr>
 
-
+    <div class="conteudo-linha">
+        <button mat-raised-button (click)="onDelete(job)">Excluir</button>
+    </div>
 
 </main>

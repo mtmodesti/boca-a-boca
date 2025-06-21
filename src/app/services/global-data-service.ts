@@ -5,9 +5,11 @@ import { loadEncryptedLocal } from '../utils/utils';
     providedIn: 'root',
 })
 export class GlobalDataService {
-
-    // Signal público e reativo diretamente
     user = signal<any | null>(null);
+
+    // Novo signal para avisar atualizações genéricas
+    private _dataUpdated = signal(false);
+    dataUpdated = this._dataUpdated.asReadonly();
 
     constructor() {
         const stored = loadEncryptedLocal<any>('app_user');
@@ -16,13 +18,18 @@ export class GlobalDataService {
         }
     }
 
-    // Método para atualizar o usuário (login)
     setUser(userInfo: any): void {
         this.user.set(userInfo);
     }
 
-    // Método para limpar o usuário (logout)
     clearUser(): void {
         this.user.set(null);
+    }
+
+    // Método para notificar atualização de dados
+    notifyDataUpdated(): void {
+        this._dataUpdated.set(true);
+        // Resetar para false rapidamente para que subscribers possam disparar novamente depois
+        setTimeout(() => this._dataUpdated.set(false), 0);
     }
 }
